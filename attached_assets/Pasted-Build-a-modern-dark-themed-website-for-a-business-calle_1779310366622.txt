@@ -1,0 +1,144 @@
+Build a modern dark-themed website for a business called “Scale Surge”.
+
+Scale Surge helps home service businesses increase revenue through automation systems, AI-powered lead response, and business process improvements. The first and primary service is “Missed Call Text Back” — when a customer misses a call, they instantly receive an automated text response so leads are not lost.
+
+The website should focus on business outcomes, not technical jargon. Avoid making the site feel like a generic AI startup. The messaging should focus on:
+
+recovering lost leads
+increasing booked jobs
+faster customer response times
+reducing missed opportunities
+helping trades businesses grow revenue
+
+Target audience:
+
+Home service businesses
+Trades companies
+Local service businesses
+Examples include plumbers, electricians, roofers, landscapers, HVAC companies, builders, cleaners, etc.
+
+Tone:
+
+Clean
+Modern
+Professional
+Direct
+Trustworthy
+Slightly premium
+UK-focused initially (Hampshire area)
+
+Design requirements:
+
+Dark theme
+Modern SaaS-style layout
+Minimal but polished
+Subtle gradients allowed
+Clean typography
+Smooth spacing and section separation
+Responsive on mobile and desktop
+Simple low-impact scroll animations and fade-ins
+Avoid excessive flashy effects
+Avoid clutter
+
+Primary CTA throughout the site:
+“Setup Now”
+
+Pages required:
+
+Home
+Services
+About
+Contact
+
+Navigation:
+
+Sticky navbar
+CTA button in navbar
+Smooth scrolling where appropriate
+
+HOME PAGE REQUIREMENTS:
+Hero section:
+
+Strong headline focused on revenue and missed leads
+Example style:
+“Stop Losing Customers From Missed Calls”
+Supporting text explaining automated instant response systems
+Primary CTA button: “Setup Now”
+Secondary CTA optional: “See How It Works”
+
+Sections:
+
+Problem section showing how businesses lose money from missed calls
+Benefits section with cards/icons:
+Instant lead response
+More booked jobs
+Reduced admin time
+Higher conversion rates
+“How it works” 3-step section
+Industries served
+Testimonial placeholder section
+Simple FAQ section
+Strong CTA banner near bottom
+
+SERVICES PAGE:
+Include:
+
+Missed Call Text Back (main featured service)
+AI Lead Response
+Automation Systems
+Lead Capture & Follow-Up
+CRM/Workflow Automation
+
+Each service should explain:
+
+the business problem
+the outcome/result
+not overly technical details
+
+ABOUT PAGE:
+Explain:
+
+Scale Surge helps local businesses grow using modern automation systems
+Focus on helping trades businesses stop losing revenue
+Mention Hampshire roots and local-first approach
+Position company as growth-focused and practical, not “tech for the sake of tech”
+
+CONTACT PAGE:
+Include:
+
+Contact form
+Name
+Business
+Phone
+Email
+Message
+CTA button
+Simple clean layout
+
+TECHNICAL REQUIREMENTS:
+
+Use React + Tailwind
+Clean reusable components
+Smooth animations using Framer Motion or lightweight alternatives
+Responsive design
+Fast loading
+SEO-friendly structure
+Accessible contrast and typography
+
+Visual inspiration:
+
+Modern SaaS websites
+Dark UI
+Clean dashboard-style sections
+Minimalist animations
+Professional but approachable
+
+Do not use:
+
+cheesy AI buzzwords
+overly futuristic cyberpunk styling
+cluttered layouts
+stock-heavy corporate design
+excessive glow effects
+
+The website should feel like a real business focused on helping service companies make more money, not a generic AI automation agency.
