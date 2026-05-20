@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { CheckCircle2, MapPin } from "lucide-react";
+import { CheckCircle2, MapPin, User } from "lucide-react";
 
 export function AboutPage() {
   return (
@@ -26,16 +26,16 @@ export function AboutPage() {
             <h2 className="text-3xl font-bold">The Scale Surge Story</h2>
             <div className="prose prose-invert prose-lg text-muted-foreground">
               <p>
-                We kept seeing the same problem over and over in Hampshire's home service industry. Excellent tradespeople—plumbers, electricians, roofers—were incredibly busy on the tools, but their business wasn't growing as fast as it should.
+                We kept seeing the same problem over and over in Hampshire's home service industry. Excellent tradespeople (plumbers, electricians, roofers) were incredibly busy on the tools, but their businesses weren't growing as fast as they should.
               </p>
               <p>
                 Why? Because when you're under a sink or up a ladder, you can't answer the phone. And in 2024, a customer who gets voicemail doesn't leave a message. They just call the next person on Google.
               </p>
               <p className="text-foreground font-medium border-l-4 border-primary pl-4 my-6">
-                "We don't do tech for the sake of tech — we do what gets your phone ringing and your jobs booked."
+                "We don't do tech for the sake of tech. We do what gets your phone ringing and your jobs booked."
               </p>
               <p>
-                Scale Surge was built to fix this specific leak in the bucket. We implement practical, no-nonsense automation that runs in the background. It catches the leads you miss, follows up with the quotes you send, and gets you more reviews—all without adding a single minute of admin to your evening.
+                Scale Surge was built to fix this specific leak in the bucket. We implement practical, no-nonsense automation that runs in the background. It catches the leads you miss, follows up with the quotes you send, and gets you more reviews, all without adding a single minute of admin to your evening.
               </p>
             </div>
           </motion.div>
@@ -76,6 +76,34 @@ export function AboutPage() {
           </motion.div>
 
         </div>
+
+        {/* Founder */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-6xl mx-auto mt-8"
+        >
+          <div className="p-8 rounded-2xl bg-card border border-border flex flex-col sm:flex-row gap-8 items-start">
+            <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+              <User className="h-8 w-8 text-primary" />
+            </div>
+            <div className="flex flex-col gap-3">
+              <div>
+                <h3 className="text-2xl font-bold">Henry Lucas</h3>
+                <p className="text-primary font-medium">Founder, Scale Surge</p>
+              </div>
+              <p className="text-muted-foreground text-lg">
+                Henry started Scale Surge after seeing first-hand how many good local tradespeople were losing work simply because they couldn't pick up the phone on the job. His focus is simple: build systems that work quietly in the background so business owners can get on with the work they're actually good at.
+              </p>
+              <p className="text-muted-foreground">
+                Based in Hampshire, Henry works directly with every client to make sure the setup is right, the messaging sounds like them, and the results are real.
+              </p>
+            </div>
+          </div>
+        </motion.div>
+
       </div>
     </div>
   );

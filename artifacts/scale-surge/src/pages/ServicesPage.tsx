@@ -63,7 +63,7 @@ export function ServicesPage() {
               {
                 icon: Bot,
                 title: "AI Lead Response",
-                desc: "Don't just text them back — engage them. Our AI can answer basic questions about your services, pricing, and availability based on rules you set.",
+                desc: "Don't just text them back. Engage them. Our AI can answer basic questions about your services, pricing, and availability based on rules you set.",
                 problem: "Customers have simple questions but you don't have time to answer texts all day."
               },
               {

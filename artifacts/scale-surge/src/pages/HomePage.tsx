@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { ArrowRight, PhoneMissed, MessageSquareText, TrendingUp, Clock, CheckCircle2, Wrench, Zap, HardHat, ShieldCheck } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { PhoneMissed, MessageSquareText, TrendingUp, Clock, CheckCircle2, Wrench, Zap, ShieldCheck, Tag } from "lucide-react";
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -19,6 +18,27 @@ const staggerContainer = {
 export function HomePage() {
   return (
     <div className="flex flex-col w-full">
+      {/* Limited-Time Offer Banner */}
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="bg-primary/10 border-b border-primary/30 py-3 px-4"
+      >
+        <div className="container mx-auto max-w-5xl flex flex-col sm:flex-row items-center justify-center gap-2 text-center sm:text-left">
+          <div className="flex items-center gap-2 shrink-0">
+            <Tag className="h-4 w-4 text-primary" />
+            <span className="text-primary font-bold text-sm uppercase tracking-wide">Limited Time</span>
+          </div>
+          <p className="text-sm text-foreground">
+            We are offering free implementation for your first month in exchange for honest feedback and a testimonial.{" "}
+            <Link href="/contact" className="text-primary font-semibold underline underline-offset-2 hover:text-primary/80 transition-colors">
+              Claim your free month
+            </Link>
+          </p>
+        </div>
+      </motion.div>
+
       {/* Hero Section */}
       <section className="relative overflow-hidden pt-24 pb-32 md:pt-32 md:pb-40 px-4">
         {/* Subtle background glow */}
