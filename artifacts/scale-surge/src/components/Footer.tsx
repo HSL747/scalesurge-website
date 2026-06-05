@@ -1,5 +1,6 @@
 import { Link } from "wouter";
-import { Zap, Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
+import logoSvg from "@assets/Scale_Surge_SVG_1780668561748.svg";
 
 export function Footer() {
   return (
@@ -9,10 +10,8 @@ export function Footer() {
           
           <div className="md:col-span-1 flex flex-col gap-4">
             <Link href="/" className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary">
-                <Zap className="h-5 w-5 text-primary-foreground" />
-              </div>
-              <span className="font-bold text-lg tracking-tight">Scale Surge</span>
+              <img src={logoSvg} alt="" className="h-8 w-8" />
+              <span className="font-bold text-lg tracking-tight text-foreground">Scale Surge</span>
             </Link>
             <p className="text-muted-foreground text-sm">
               The growth partner for trades businesses in Hampshire. We build simple automation that keeps jobs coming in without adding admin.
@@ -23,9 +22,7 @@ export function Footer() {
             <h4 className="font-semibold text-foreground">Services</h4>
             <div className="flex flex-col gap-2 text-sm text-muted-foreground">
               <Link href="/services" className="hover:text-primary transition-colors">Missed Call Text Back</Link>
-              <Link href="/services" className="hover:text-primary transition-colors">AI Lead Response</Link>
-              <Link href="/services" className="hover:text-primary transition-colors">Lead Capture</Link>
-              <Link href="/services" className="hover:text-primary transition-colors">Workflow Automation</Link>
+              <span className="text-muted-foreground/50">More coming soon</span>
             </div>
           </div>
 
