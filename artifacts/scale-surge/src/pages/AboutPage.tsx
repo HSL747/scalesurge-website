@@ -59,7 +59,7 @@ export function AboutPage() {
               <h3 className="text-2xl font-bold mb-6">Our Core Values</h3>
               <ul className="flex flex-col gap-4">
                 {[
-                  { title: "No BS", desc: "Straight talking, clear pricing, and no confusing tech jargon." },
+                  { title: "Straight Talking", desc: "Clear pricing, plain English, and no confusing tech jargon." },
                   { title: "Results over Features", desc: "If a system doesn't make you money or save you time, we don't build it." },
                   { title: "Zero Admin Added", desc: "Our systems run in the background. You focus on the tools, we handle the leads." }
                 ].map((value, i) => (
