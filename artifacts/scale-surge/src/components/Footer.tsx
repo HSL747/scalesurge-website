@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 import { Mail, MapPin, Phone } from "lucide-react";
-import logoSvg from "@assets/Scale_Surge_SVG_1780668561748.svg";
+const logoSvg = `${import.meta.env.BASE_URL}logo.svg`;
 
 export function Footer() {
   return (
@@ -10,7 +10,7 @@ export function Footer() {
           
           <div className="md:col-span-1 flex flex-col gap-4">
             <Link href="/" className="flex items-center gap-2">
-              <img src={logoSvg} alt="" className="h-8 w-8" />
+              <img src={logoSvg} alt="" className="h-9 w-auto" />
               <span className="font-bold text-lg tracking-tight text-foreground">Scale Surge</span>
             </Link>
             <p className="text-muted-foreground text-sm">
