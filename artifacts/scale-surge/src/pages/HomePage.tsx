@@ -304,7 +304,7 @@ export function HomePage() {
               },
               {
                 q: "How long does setup take?",
-                a: "Once we have your details, the system is typically live within 48 hours. There's nothing for you to install or configure yourself."
+                a: "Once we have your details, the system is typically live the same day. There's nothing for you to install or configure yourself."
               },
               {
                 q: "Am I locked into a long contract?",
