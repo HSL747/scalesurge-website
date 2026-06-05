@@ -1,0 +1,60 @@
+PROJECT: Missed Call Text-Back System — Continuation Briefing
+
+What it does:
+A backend-only Node.js system for trades businesses. When a customer calls the client's business number, the call is forwarded (via mobile network call forwarding) to a Twilio number. Twilio rings the client's real phone for 20 seconds. If unanswered, the system sends an automatic SMS to the customer. If the customer replies, the message is forwarded to the client's phone. After the first reply is forwarded, the automation ends and the client handles communication directly.
+
+Tech stack: Node.js, Express 5, Twilio SDK, PostgreSQL (Neon), Prisma ORM (v6 — important, NOT v7 which has breaking changes), dotenv. CommonJS throughout (require, not import). Deployed on Railway.
+
+GitHub repo: HSL747/missed-call-system (private)
+Live Railway URL: (user to fill in — check Railway dashboard)
+Neon database: Connected and migrated, 3 tables: Lead, Call, Message
+
+Folder structure:
+
+
+src/
+  server.js
+  routes/call.js        — /webhooks/incoming-call + /webhooks/dial-action
+  routes/sms.js         — /webhooks/inbound-sms
+  services/callService.js
+  services/smsService.js
+  services/twilioClient.js
+  lib/prisma.js
+prisma/schema.prisma
+railway.toml
+Key implementation decisions:
+
+Uses <Dial action="/webhooks/dial-action"> not statusCallback — fires synchronously after dial completes, simpler to correlate
+callerId in Dial verb set to the customer's number so client sees real caller (requires Twilio paid account — fails on trial)
+Prisma v6 with prisma-client-js generator (NOT the new prisma-client generator which outputs TypeScript and breaks CommonJS)
+app.set('trust proxy', 1) required for Twilio signature validation behind Railway/ngrok proxy
+Prisma singleton in src/lib/prisma.js importing from @prisma/client
+All features built (all 6 stages complete):
+
+Incoming call handled, client's phone rung for 20 seconds
+Missed call detection (status: no-answer, busy, failed, canceled)
+Spam protection: calls under 3 seconds ignored
+Autoresponse SMS sent to customer on missed call
+Business hours detection — different SMS message in/out of hours
+Both SMS messages customisable per client via env vars
+Cooldown: no repeat autoresponse within 2 hours
+Reply window: no autoresponse if lead replied within 24 hours
+Inbound SMS stored and forwarded to client
+Only first reply forwarded — automation ends after that
+All calls, leads, messages stored in PostgreSQL
+Twilio signature validation on all webhooks
+Environment variables (set in Railway per client deployment):
+
+
+DATABASE_URL
+TWILIO_ACCOUNT_SID
+TWILIO_AUTH_TOKEN
+TWILIO_PHONE_NUMBER
+CLIENT_PHONE_NUMBER
+AUTORESPONSE_MESSAGE
+AUTORESPONSE_MESSAGE_OOH
+BUSINESS_HOURS_START     (e.g. 8)
+BUSINESS_HOURS_END       (e.g. 18)
+BUSINESS_DAYS            (e.g. 1,2,3,4,5 — Mon-Fri)
+BUSINESS_TIMEZONE        (e.g. Europe/London)
+PORT

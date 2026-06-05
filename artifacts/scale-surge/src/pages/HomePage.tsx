@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { PhoneMissed, MessageSquareText, TrendingUp, Clock, CheckCircle2, Wrench, Zap, ShieldCheck, Tag } from "lucide-react";
+import { PhoneMissed, MessageSquareText, TrendingUp, Clock, CheckCircle2, Wrench, Zap, ShieldCheck, Tag, Phone, Moon } from "lucide-react";
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -41,7 +41,6 @@ export function HomePage() {
 
       {/* Hero Section */}
       <section className="relative overflow-hidden pt-24 pb-32 md:pt-32 md:pb-40 px-4">
-        {/* Subtle background glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
         
         <div className="container mx-auto relative z-10 max-w-5xl">
@@ -62,7 +61,7 @@ export function HomePage() {
             </motion.h1>
             
             <motion.p variants={fadeIn} className="text-lg md:text-xl text-muted-foreground max-w-2xl">
-              You're busy on the job, a lead calls, it goes to voicemail, and they call the next plumber on Google. We fix that with automated instant response.
+              When you can't answer the phone, your customer gets an instant text from your business. They stop searching Google. You get the job.
             </motion.p>
             
             <motion.div variants={fadeIn} className="flex flex-col sm:flex-row items-center gap-4 mt-4 w-full sm:w-auto">
@@ -90,16 +89,16 @@ export function HomePage() {
             >
               <motion.h2 variants={fadeIn} className="text-3xl md:text-4xl font-bold">The costly reality of a busy day.</motion.h2>
               <motion.p variants={fadeIn} className="text-muted-foreground text-lg">
-                If you don't answer the phone, 80% of callers won't leave a voicemail. They simply call your competitor. 
-                Every missed call is a missed £200+ job.
+                If you don't answer, 80% of callers won't leave a voicemail. They call the next number on Google.
+                Every missed call is a missed job.
               </motion.p>
               <motion.ul variants={staggerContainer} className="flex flex-col gap-4 mt-4">
                 {[
-                  "You're under a sink or on a roof",
-                  "A potential customer calls your number",
-                  "It rings out to voicemail",
+                  "You're on a job and can't pick up",
+                  "A customer calls your number",
+                  "It rings out. No voicemail.",
                   "They immediately call the next business on Google",
-                  "You lose the job, the revenue, and the lifetime value"
+                  "You lose the job, and probably that customer for life"
                 ].map((item, i) => (
                   <motion.li key={i} variants={fadeIn} className="flex items-start gap-3">
                     <CheckCircle2 className="h-6 w-6 text-primary shrink-0" />
@@ -142,8 +141,8 @@ export function HomePage() {
       <section className="py-24 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-6">Practical automation that pays for itself.</h2>
-            <p className="text-lg text-muted-foreground">We set up the systems that run in the background, turning missed opportunities into booked jobs without you lifting a finger.</p>
+            <h2 className="text-3xl md:text-5xl font-bold mb-6">One system. No extra work on your end.</h2>
+            <p className="text-lg text-muted-foreground">Set it up once and it runs quietly in the background, catching the leads you would otherwise lose.</p>
           </div>
 
           <motion.div 
@@ -155,24 +154,24 @@ export function HomePage() {
           >
             {[
               {
+                icon: Phone,
+                title: "Your Phone Rings First",
+                desc: "The system rings you for 20 seconds before doing anything. If you answer, the call goes through as normal."
+              },
+              {
                 icon: MessageSquareText,
-                title: "Instant Response",
-                desc: "When you miss a call, our system instantly texts the customer back to capture their request."
+                title: "Instant Text If Missed",
+                desc: "If unanswered, the customer gets a text from your business name within seconds. They stay engaged instead of calling a competitor."
               },
               {
                 icon: TrendingUp,
-                title: "More Booked Jobs",
-                desc: "Stop leads from calling competitors. Engage them immediately while they're warm."
+                title: "Replies Come to You",
+                desc: "If the customer texts back, the reply is forwarded to your phone. No new apps. No dashboard to check."
               },
               {
-                icon: Clock,
-                title: "Zero Admin Time",
-                desc: "Everything happens automatically. No apps to check, no complex software to learn."
-              },
-              {
-                icon: ShieldCheck,
-                title: "Higher Conversion",
-                desc: "Professionally formatted follow-ups make your business look like the most reliable option."
+                icon: Moon,
+                title: "Business Hours Aware",
+                desc: "Different message sent inside and outside your working hours, so customers always get a reply that makes sense."
               }
             ].map((benefit, i) => (
               <motion.div key={i} variants={fadeIn} className="bg-card border border-border p-6 rounded-xl hover:border-primary/50 transition-colors">
@@ -198,16 +197,33 @@ export function HomePage() {
           <div className="max-w-4xl mx-auto">
             <div className="flex flex-col gap-12">
               {[
-                { step: "01", title: "You miss a call", desc: "You're under a sink or driving. The call rings out." },
-                { step: "02", title: "Instant automated text", desc: "Our system detects the missed call and instantly texts them: 'Hi, this is Dave's Plumbing. I'm on a job right now. How can I help you today?'" },
-                { step: "03", title: "Customer replies, job secured", desc: "They text back their problem. They stop searching Google. You reply when you're free and book the job." }
+                {
+                  step: "01",
+                  title: "A customer calls your number",
+                  desc: "Call forwarding on your existing number routes the call through our system. Nothing changes for the customer — they're calling your number as normal."
+                },
+                {
+                  step: "02",
+                  title: "Your phone rings for 20 seconds",
+                  desc: "Our system rings your phone just like a regular call. If you pick up, it's a normal conversation. Nothing else happens."
+                },
+                {
+                  step: "03",
+                  title: "Miss it? They get a text immediately",
+                  desc: "If you don't answer, the customer receives an automated text in seconds: \"Hi, this is [Your Business]. I'm on a job right now. How can I help you today?\""
+                },
+                {
+                  step: "04",
+                  title: "Their reply comes straight to your phone",
+                  desc: "If they text back, the message is forwarded to your phone as a normal text. You reply when you're free and book the job. No app needed."
+                }
               ].map((item, i) => (
                 <motion.div 
                   key={i}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.2 }}
+                  transition={{ delay: i * 0.15 }}
                   className="flex gap-6 items-start"
                 >
                   <div className="shrink-0 text-primary font-bold text-4xl mt-1">{item.step}</div>
@@ -227,7 +243,7 @@ export function HomePage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Built for Hampshire Trades.</h2>
-            <p className="text-lg text-muted-foreground">If you run a service business, you need this.</p>
+            <p className="text-lg text-muted-foreground">If you run a service business and miss calls, you need this.</p>
           </div>
 
           <div className="flex flex-wrap justify-center gap-4 max-w-4xl mx-auto">
@@ -244,14 +260,15 @@ export function HomePage() {
       {/* Testimonials */}
       <section className="py-24 bg-card border-y border-border">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">Don't just take our word for it.</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Don't just take our word for it.</h2>
+          <p className="text-center text-muted-foreground mb-16">We are currently collecting feedback from our first clients. These are coming soon.</p>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { name: "Mark T.", biz: "MT Plumbing & Heating", text: "I used to miss 3-4 calls a day when on site. Now they get an instant text, and I've booked an extra £2k in jobs this month just from the automated follow-up." },
-              { name: "Sarah J.", biz: "SJ Electrical Services", text: "Scale Surge is exactly what it says on the tin. No complicated software, just a system that works in the background. Brilliant." },
-              { name: "Tom W.", biz: "Wessex Roofing", text: "Best money I spend every month. It's like having an admin answering the phone for me while I'm up on a roof." }
+              { name: "Mark T.", biz: "MT Plumbing & Heating", text: "I used to miss 3-4 calls a day on site. Now they get an instant text and I've booked extra jobs this month purely from the follow-up." },
+              { name: "Sarah J.", biz: "SJ Electrical Services", text: "No complicated software, just a system that works in the background. My phone rings, and if I miss it the customer gets a text straight away. Brilliant." },
+              { name: "Tom W.", biz: "Wessex Roofing", text: "It's like having someone answering the phone for me while I'm up on a roof. The customer replies, I get the message, I book the job. Simple." }
             ].map((testimonial, i) => (
-              <div key={i} className="p-8 rounded-2xl bg-background border border-border flex flex-col justify-between gap-6">
+              <div key={i} className="p-8 rounded-2xl bg-background border border-border flex flex-col justify-between gap-6 opacity-50">
                 <p className="text-lg italic text-muted-foreground">"{testimonial.text}"</p>
                 <div>
                   <div className="font-bold">{testimonial.name}</div>
@@ -273,18 +290,37 @@ export function HomePage() {
 
           <div className="space-y-4">
             {[
-              { q: "How long does it take to set up?", a: "We can have your missed call text back system live in under 48 hours. There's no software for you to install or learn." },
-              { q: "Do I need to change my business phone number?", a: "No. We can integrate with your existing landline or mobile number depending on your current provider setup." },
-              { q: "What if I get spam or sales calls?", a: "Our system is smart enough to filter out known spam numbers and automated callers, so we only text back real potential customers." },
-              { q: "Am I locked into a long contract?", a: "No. We work on a rolling monthly basis. We believe in keeping your business by getting you results, not by locking you into a 12-month contract." },
-              { q: "Can I customize the text message?", a: "Absolutely. We work with you to craft a message that sounds exactly like you. No robotic language." }
+              {
+                q: "Do I need to change my phone number?",
+                a: "No. You keep your existing number. You just set up conditional call forwarding on your mobile or landline — a standard network feature. This only activates when a call goes unanswered, so your phone still rings first every time."
+              },
+              {
+                q: "What happens if I answer the call?",
+                a: "The system rings your phone for 20 seconds. If you answer, it's a completely normal phone call and no text is sent. The automated message only goes out if the call goes unanswered."
+              },
+              {
+                q: "Will I get spammed with customer replies?",
+                a: "No. The same customer won't receive more than one automated text every two hours, so there's no risk of repeat messages going out to the same person."
+              },
+              {
+                q: "How long does setup take?",
+                a: "Once we have your details, the system is typically live within 48 hours. There's nothing for you to install or configure yourself."
+              },
+              {
+                q: "Am I locked into a long contract?",
+                a: "No. We work on a rolling monthly basis. We keep your business by getting you results, not by locking you in."
+              },
+              {
+                q: "Can I customise the text message?",
+                a: "Yes. We set up a personalised message in your business name and tone. You also get a separate message for outside business hours, so customers always get a response that makes sense."
+              }
             ].map((faq, i) => (
               <div key={i} className="border border-border rounded-lg bg-card overflow-hidden">
                 <details className="group">
                   <summary className="flex justify-between items-center font-medium cursor-pointer list-none p-6 text-lg">
                     <span>{faq.q}</span>
                     <span className="transition group-open:rotate-180">
-                      <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
+                      <svg fill="none" height="24" shapeRendering="geometricPrecision" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
                     </span>
                   </summary>
                   <p className="text-muted-foreground mt-3 group-open:animate-fadeIn px-6 pb-6 border-t border-border pt-4">
@@ -303,7 +339,7 @@ export function HomePage() {
         <div className="container mx-auto px-4 relative z-10 text-center max-w-3xl">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">Stop leaving money on the table.</h2>
           <p className="text-xl text-muted-foreground mb-10">
-            Let's get your missed call text back system set up this week.
+            Let's get your missed call text back system live this week.
           </p>
           <Link href="/contact" className="inline-flex h-14 items-center justify-center rounded-md bg-primary px-10 text-lg font-bold text-primary-foreground shadow-lg hover:bg-primary/90 transition-all hover:scale-105">
             Setup Now
