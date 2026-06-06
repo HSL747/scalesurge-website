@@ -13,15 +13,16 @@ jobs:
 
       - uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: 9
 
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
 
       - name: Install dependencies
-        run: pnpm --filter @workspace/scale-surge install
+        run: pnpm --filter @workspace/scale-surge install --config.dedupe-peer-dependents=false
+        env:
+          PNPM_FLAGS: --ignore-scripts
 
       - name: Build
         run: pnpm --filter @workspace/scale-surge run build:static
