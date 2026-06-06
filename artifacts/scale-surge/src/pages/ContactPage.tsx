@@ -101,7 +101,7 @@ export function ContactPage() {
                   </div>
                   <div>
                     <div className="text-sm text-muted-foreground font-medium">Location</div>
-                    <div className="font-bold text-lg">Hampshire, UK</div>
+                    <div className="font-bold text-lg">Winchester, Hampshire, UK</div>
                   </div>
                 </div>
               </div>
