@@ -57,7 +57,7 @@ export function Footer() {
         </div>
         
         <div className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} Scale Surge. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Scale Surge Limited. All rights reserved.</p>
           <p>Built for Hampshire Trades.</p>
         </div>
       </div>
