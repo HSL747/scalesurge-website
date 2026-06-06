@@ -81,7 +81,7 @@ export function ContactPage() {
                   </div>
                   <div>
                     <div className="text-sm text-muted-foreground font-medium">Call Us</div>
-                    <div className="font-bold text-lg">01962 123456</div>
+                    <div className="font-bold text-lg">WIP</div>
                   </div>
                 </div>
                 
@@ -91,7 +91,7 @@ export function ContactPage() {
                   </div>
                   <div>
                     <div className="text-sm text-muted-foreground font-medium">Email Us</div>
-                    <div className="font-bold text-lg">hello@scalesurge.co.uk</div>
+                    <div className="font-bold text-lg">henrylucas@scalesurge.co.uk</div>
                   </div>
                 </div>
                 
