@@ -21,7 +21,7 @@ jobs:
           cache: 'pnpm'
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm --filter @workspace/scale-surge install
 
       - name: Build
         run: pnpm --filter @workspace/scale-surge run build:static
