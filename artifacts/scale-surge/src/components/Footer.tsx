@@ -33,6 +33,7 @@ export function Footer() {
               <Link href="/contact" className="hover:text-primary transition-colors">Contact</Link>
               <a href="https://app.termly.io/policy-viewer/policy.html?policyUUID=6e25044b-7ace-4d25-8df9-d6c082d02cc8" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Privacy Policy</a>
               <a href="https://app.termly.io/policy-viewer/policy.html?policyUUID=408eb457-4a75-424e-9313-59a9d8e8884b" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Terms of Service</a>
+              <a href="https://app.termly.io/policy-viewer/policy.html?policyUUID=0c482b6a-de91-4ceb-bb23-d9ef088615a9" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Disclaimer</a>
             </div>
           </div>
 
