@@ -1,86 +1,39 @@
 import { motion } from "framer-motion";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
 import { MapPin, Phone, Mail, CheckCircle, AlertCircle } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 
-const formSchema = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
-  businessName: z.string().min(2, { message: "Business name is required." }),
-  phone: z.string().min(10, { message: "Valid phone number is required." }),
-  email: z.string().email({ message: "Valid email is required." }),
-  message: z.string().optional(),
-});
-
-const FORMSPREE_URL = import.meta.env.VITE_FORMSPREE_URL as string | undefined;
+const FORMSPREE_URL = "https://formspree.io/f/mykaebkk";
 
 export function ContactPage() {
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      businessName: "",
-      phone: "",
-      email: "",
-      message: "",
-    },
-  });
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setStatus("submitting");
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsSubmitting(true);
-    setIsError(false);
-
-    if (!FORMSPREE_URL) {
-      console.error("VITE_FORMSPREE_URL is not set.");
-      setIsError(true);
-      setIsSubmitting(false);
-      return;
-    }
+    const form = e.currentTarget;
+    const data = Object.fromEntries(new FormData(form));
 
     try {
       const res = await fetch(FORMSPREE_URL, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          name: values.name,
-          "Business Name": values.businessName,
-          phone: values.phone,
-          email: values.email,
-          message: values.message,
-        }),
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(data),
       });
-
-      const data = await res.json();
-
-      if (res.ok && data.ok) {
-        setIsSubmitted(true);
+      const json = await res.json();
+      if (res.ok && json.ok) {
+        setStatus("success");
+        form.reset();
       } else {
-        setIsError(true);
+        setStatus("error");
       }
     } catch {
-      setIsError(true);
-    } finally {
-      setIsSubmitting(false);
+      setStatus("error");
     }
   }
 
@@ -152,7 +105,7 @@ export function ContactPage() {
             className="lg:col-span-3"
           >
             <div className="bg-card border border-border p-8 md:p-10 rounded-2xl">
-              {isSubmitted ? (
+              {status === "success" ? (
                 <div className="flex flex-col items-center justify-center text-center py-12 gap-4">
                   <div className="h-20 w-20 rounded-full bg-primary/20 flex items-center justify-center mb-4">
                     <CheckCircle className="h-10 w-10 text-primary" />
@@ -161,110 +114,60 @@ export function ContactPage() {
                   <p className="text-muted-foreground max-w-md mx-auto">
                     Thanks for reaching out. We'll be in touch shortly to discuss how we can help your business grow.
                   </p>
-                  <Button
-                    variant="outline"
-                    className="mt-6"
-                    onClick={() => { setIsSubmitted(false); setIsError(false); form.reset(); }}
-                  >
+                  <Button variant="outline" className="mt-6" onClick={() => setStatus("idle")}>
                     Send another message
                   </Button>
                 </div>
               ) : (
-                <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                    {isError && (
-                      <div className="flex items-center gap-3 rounded-lg border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm text-destructive">
-                        <AlertCircle className="h-4 w-4 shrink-0" />
-                        Something went wrong. Please try again or email us directly.
-                      </div>
-                    )}
-
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <FormField
-                        control={form.control}
-                        name="name"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Full Name</FormLabel>
-                            <FormControl>
-                              <Input placeholder="John Smith" {...field} className="bg-background" />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="businessName"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Business Name</FormLabel>
-                            <FormControl>
-                              <Input placeholder="Smith Plumbing Ltd" {...field} className="bg-background" />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  {status === "error" && (
+                    <div className="flex items-center gap-3 rounded-lg border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm text-destructive">
+                      <AlertCircle className="h-4 w-4 shrink-0" />
+                      Something went wrong. Please try again or email us directly.
                     </div>
+                  )}
 
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <FormField
-                        control={form.control}
-                        name="phone"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Phone Number</FormLabel>
-                            <FormControl>
-                              <Input placeholder="07123 456789" {...field} className="bg-background" />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Email Address</FormLabel>
-                            <FormControl>
-                              <Input placeholder="john@example.com" {...field} className="bg-background" />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <Label htmlFor="name">Full Name</Label>
+                      <Input id="name" name="name" placeholder="John Smith" required className="bg-background" />
                     </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="businessName">Business Name</Label>
+                      <Input id="businessName" name="businessName" placeholder="Smith Plumbing Ltd" required className="bg-background" />
+                    </div>
+                  </div>
 
-                    <FormField
-                      control={form.control}
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <Label htmlFor="phone">Phone Number</Label>
+                      <Input id="phone" name="phone" type="tel" placeholder="07123 456789" required className="bg-background" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="email">Email Address</Label>
+                      <Input id="email" name="email" type="email" placeholder="john@example.com" required className="bg-background" />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="message">How can we help?</Label>
+                    <Textarea
+                      id="message"
                       name="message"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>How can we help?</FormLabel>
-                          <FormControl>
-                            <Textarea
-                              placeholder="Tell us a bit about your current situation..."
-                              className="min-h-[120px] bg-background"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
+                      placeholder="Tell us a bit about your current situation..."
+                      className="min-h-[120px] bg-background"
                     />
+                  </div>
 
-                    <Button
-                      type="submit"
-                      size="lg"
-                      className="w-full font-bold text-base h-14"
-                      disabled={isSubmitting}
-                    >
-                      {isSubmitting ? "Sending..." : "Submit Details"}
-                    </Button>
-                  </form>
-                </Form>
+                  <Button
+                    type="submit"
+                    size="lg"
+                    className="w-full font-bold text-base h-14"
+                    disabled={status === "submitting"}
+                  >
+                    {status === "submitting" ? "Sending..." : "Submit Details"}
+                  </Button>
+                </form>
               )}
             </div>
           </motion.div>
