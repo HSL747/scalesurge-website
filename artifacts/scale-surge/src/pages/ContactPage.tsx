@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { MapPin, Phone, Mail, CheckCircle } from "lucide-react";
+import { MapPin, Phone, Mail, CheckCircle, AlertCircle } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -25,8 +25,12 @@ const formSchema = z.object({
   message: z.string().optional(),
 });
 
+const FORMSPREE_URL = import.meta.env.VITE_FORMSPREE_URL as string | undefined;
+
 export function ContactPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -39,12 +43,45 @@ export function ContactPage() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Simulate API call
-    console.log(values);
-    setTimeout(() => {
-      setIsSubmitted(true);
-    }, 500);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsSubmitting(true);
+    setIsError(false);
+
+    if (!FORMSPREE_URL) {
+      console.error("VITE_FORMSPREE_URL is not set.");
+      setIsError(true);
+      setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      const res = await fetch(FORMSPREE_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: values.name,
+          "Business Name": values.businessName,
+          phone: values.phone,
+          email: values.email,
+          message: values.message,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.ok) {
+        setIsSubmitted(true);
+      } else {
+        setIsError(true);
+      }
+    } catch {
+      setIsError(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -61,8 +98,8 @@ export function ContactPage() {
 
       <div className="container mx-auto px-4 py-24">
         <div className="grid lg:grid-cols-5 gap-16 max-w-6xl mx-auto">
-          
-          <motion.div 
+
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
@@ -73,7 +110,7 @@ export function ContactPage() {
               <p className="text-muted-foreground mb-8">
                 Ready to stop losing customers to competitors? Reach out directly or fill out the form. We respond quickly.
               </p>
-              
+
               <div className="flex flex-col gap-6">
                 <div className="flex items-center gap-4">
                   <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
@@ -84,7 +121,7 @@ export function ContactPage() {
                     <div className="font-bold text-lg">WIP</div>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-4">
                   <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                     <Mail className="h-5 w-5 text-primary" />
@@ -94,7 +131,7 @@ export function ContactPage() {
                     <div className="font-bold text-lg">henrylucas@scalesurge.co.uk</div>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-4">
                   <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                     <MapPin className="h-5 w-5 text-primary" />
@@ -108,7 +145,7 @@ export function ContactPage() {
             </div>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -124,10 +161,10 @@ export function ContactPage() {
                   <p className="text-muted-foreground max-w-md mx-auto">
                     Thanks for reaching out. We'll be in touch shortly to discuss how we can help your business grow.
                   </p>
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     className="mt-6"
-                    onClick={() => setIsSubmitted(false)}
+                    onClick={() => { setIsSubmitted(false); setIsError(false); form.reset(); }}
                   >
                     Send another message
                   </Button>
@@ -135,6 +172,13 @@ export function ContactPage() {
               ) : (
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                    {isError && (
+                      <div className="flex items-center gap-3 rounded-lg border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm text-destructive">
+                        <AlertCircle className="h-4 w-4 shrink-0" />
+                        Something went wrong. Please try again or email us directly.
+                      </div>
+                    )}
+
                     <div className="grid md:grid-cols-2 gap-6">
                       <FormField
                         control={form.control}
@@ -200,10 +244,10 @@ export function ContactPage() {
                         <FormItem>
                           <FormLabel>How can we help?</FormLabel>
                           <FormControl>
-                            <Textarea 
-                              placeholder="Tell us a bit about your current situation..." 
+                            <Textarea
+                              placeholder="Tell us a bit about your current situation..."
                               className="min-h-[120px] bg-background"
-                              {...field} 
+                              {...field}
                             />
                           </FormControl>
                           <FormMessage />
@@ -211,8 +255,13 @@ export function ContactPage() {
                       )}
                     />
 
-                    <Button type="submit" size="lg" className="w-full font-bold text-base h-14">
-                      Submit Details
+                    <Button
+                      type="submit"
+                      size="lg"
+                      className="w-full font-bold text-base h-14"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? "Sending..." : "Submit Details"}
                     </Button>
                   </form>
                 </Form>
