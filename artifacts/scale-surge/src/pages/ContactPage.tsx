@@ -71,7 +71,7 @@ export function ContactPage() {
                   </div>
                   <div>
                     <div className="text-sm text-muted-foreground font-medium">Call Us</div>
-                    <div className="font-bold text-lg">WIP</div>
+                    <a href="tel:03330540266" className="font-bold text-lg hover:text-primary transition-colors">0333 0540 266</a>
                   </div>
                 </div>
 
