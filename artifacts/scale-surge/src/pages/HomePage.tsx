@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { PhoneMissed, MessageSquareText, TrendingUp, Clock, CheckCircle2, Wrench, Zap, ShieldCheck, Tag, Phone, Moon, ArrowDown, MessageCircle } from "lucide-react";
+import { PhoneMissed, MessageSquareText, TrendingUp, Clock, CheckCircle2, Zap, ShieldCheck, Tag, Phone, Moon, ArrowDown, MessageCircle, Star } from "lucide-react";
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -371,13 +371,13 @@ export function HomePage() {
             whileInView="visible"
             viewport={{ once: true }}
             variants={staggerContainer}
-            className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
           >
             {[
               {
                 icon: Phone,
                 title: "Your Phone Rings First",
-                desc: "The system rings you for 20 seconds before doing anything. If you answer, the call goes through as normal."
+                desc: "The system rings you before doing anything. If you answer, the call goes through as normal. Nothing else happens."
               },
               {
                 icon: MessageSquareText,
@@ -390,9 +390,19 @@ export function HomePage() {
                 desc: "If the customer texts back, the reply is forwarded to your phone. No new apps. No dashboard to check."
               },
               {
+                icon: Clock,
+                title: "Auto Follow-Up After 2 Hours",
+                desc: "If the customer doesn't reply, a second message is sent automatically two hours later. Two chances at the lead without any extra effort."
+              },
+              {
                 icon: Moon,
                 title: "Business Hours Aware",
                 desc: "Different message sent inside and outside your working hours, so customers always get a reply that makes sense."
+              },
+              {
+                icon: Star,
+                title: "Review Request System",
+                desc: "After a job, text a customer's number to your Scale Surge line and they automatically receive a review request. More five-star reviews, less chasing."
               }
             ].map((benefit, i) => (
               <motion.div key={i} variants={fadeIn} className="bg-background border border-border p-6 rounded-xl hover:border-primary/50 transition-colors">
@@ -440,6 +450,12 @@ export function HomePage() {
                   icon: TrendingUp,
                   title: "Their reply comes straight to your phone",
                   desc: "You reply when you're free and book the job. No app needed."
+                },
+                {
+                  step: "05",
+                  icon: Clock,
+                  title: "No reply? Auto follow-up in 2 hours",
+                  desc: "If the customer doesn't respond, a second message is sent automatically. Two chances at the lead — zero extra effort from you."
                 }
               ].map((item, i) => (
                 <motion.div
@@ -454,7 +470,7 @@ export function HomePage() {
                     <div className="w-11 h-11 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center">
                       <item.icon className="w-5 h-5 text-primary" />
                     </div>
-                    {i < 3 && <div className="w-px h-8 bg-border" />}
+                    {i < 4 && <div className="w-px h-8 bg-border" />}
                   </div>
                   <div className="pt-1.5">
                     <div className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Step {item.step}</div>
@@ -567,7 +583,15 @@ export function HomePage() {
               },
               {
                 q: "Can I customise the text message?",
-                a: "Yes. We set up a personalised message in your business name and tone. You also get a separate message for outside business hours, so customers always get a response that makes sense."
+                a: "Yes. You provide the wording you want sent and we set it up. You get a separate message for outside business hours too, so customers always get a response that makes sense."
+              },
+              {
+                q: "What happens if the customer doesn't reply?",
+                a: "If there's no response within two hours, an automated follow-up message is sent. This gives you a second chance at the lead without any action on your part. Customers can opt out at any time by replying STOP."
+              },
+              {
+                q: "How does the Review Request system work?",
+                a: "After completing a job, you simply text the customer's number to your Scale Surge line. They automatically receive a message asking them to leave a review, with a link to your review page. You provide the message wording and review link when you sign up."
               }
             ].map((faq, i) => (
               <div key={i} className="border border-border rounded-lg bg-background overflow-hidden">
@@ -594,7 +618,7 @@ export function HomePage() {
         <div className="container mx-auto px-4 relative z-10 text-center max-w-3xl">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">Stop leaving money on the table.</h2>
           <p className="text-xl text-muted-foreground mb-10">
-            Let's get your missed call text back system live this week.
+            Missed call text back and review requests — both live, both free for your first month.
           </p>
           <Link href="/contact" className="inline-flex h-14 items-center justify-center rounded-md bg-primary px-10 text-lg font-bold text-primary-foreground shadow-lg hover:bg-primary/90 transition-all hover:scale-105">
             Setup Now
